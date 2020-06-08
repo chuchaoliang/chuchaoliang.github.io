@@ -4,48 +4,23 @@
   
     
     <entry>
-      <title>test3</title>
-      <link href="/2020/06/06/test3/"/>
-      <url>/2020/06/06/test3/</url>
+      <title>JVM</title>
+      <link href="/2020/06/06/jvm/"/>
+      <url>/2020/06/06/jvm/</url>
       
-        <content type="html"><![CDATA[<h4 id="ssss"><a href="#ssss" class="headerlink" title="ssss"></a>ssss</h4>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> test3,java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>test2</title>
-      <link href="/2020/06/06/test2/"/>
-      <url>/2020/06/06/test2/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>ss    </p></blockquote><hr><p>ssssssssssssssssss</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><ol><li>JVM简介（×）</li></ol><hr><h2 id="内存结构篇"><a href="#内存结构篇" class="headerlink" title="内存结构篇"></a>内存结构篇</h2><ol><li>类加载子系统（×）</li><li>虚拟机栈（×）</li><li>本地方法栈（×）</li><li>程序计数器（×）</li><li>堆（×）</li><li>方法区（×）</li><li>执行引擎（×）</li><li>本地方法接口/本地方法库（×）</li></ol><hr><h2 id="垃圾回收篇"><a href="#垃圾回收篇" class="headerlink" title="垃圾回收篇"></a>垃圾回收篇</h2><ol><li>垃圾收集器（×）</li><li>内存分配策略（×）</li></ol><h2 id="性能监控与调优篇"><a href="#性能监控与调优篇" class="headerlink" title="性能监控与调优篇"></a>性能监控与调优篇</h2><ol><li>性能监控（×）</li><li>性能调优（×）</li></ol><hr><h2 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h2><ol><li>StringTable（×）</li><li>字节码（×）</li></ol><hr><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol><li>…（×）</li></ol>]]></content>
       
       
       <categories>
           
           <category> java </category>
           
-          <category> jvm </category>
-          
-          <category> test </category>
-          
       </categories>
       
       
         <tags>
             
-            <tag> java </tag>
-            
-            <tag> test </tag>
+            <tag> jvm </tag>
             
         </tags>
       
@@ -54,65 +29,25 @@
     
     
     <entry>
-      <title>test1</title>
-      <link href="/2020/06/06/test1/"/>
-      <url>/2020/06/06/test1/</url>
+      <title>感悟</title>
+      <link href="/2020/06/06/life/"/>
+      <url>/2020/06/06/life/</url>
       
-        <content type="html"><![CDATA[<h1 id="测试内容"><a href="#测试内容" class="headerlink" title="测试内容"></a>测试内容</h1><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><h3 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h3><h4 id="jvm-1"><a href="#jvm-1" class="headerlink" title="jvm"></a>jvm</h4>]]></content>
+        <content type="html"><![CDATA[<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol><li>为什么</li></ol>]]></content>
       
       
       <categories>
           
-          <category> java,jvm </category>
+          <category> 生活 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> test1 </tag>
+            <tag> 感悟 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hello</title>
-      <link href="/2020/06/06/hello/"/>
-      <url>/2020/06/06/hello/</url>
-      
-        <content type="html"><![CDATA[<h2 id="测试内容"><a href="#测试内容" class="headerlink" title="测试内容"></a>测试内容</h2><blockquote></blockquote><table><thead><tr><th>标签</th><th>含义</th></tr></thead><tbody><tr><td>title</td><td>标题</td></tr><tr><td>date</td><td>发布时间</td></tr><tr><td>tags</td><td>标签</td></tr><tr><td>categories</td><td>类别</td></tr><tr><td>description</td><td>描述信息</td></tr><tr><td>cover</td><td>头像地址 false无头像</td></tr><tr><td>hide</td><td>true隐藏博客false不隐藏</td></tr><tr><td>sticky</td><td>置顶博客 数字越大优先级越高</td></tr></tbody></table><h3 id="置顶文章-Pinned-article"><a href="#置顶文章-Pinned-article" class="headerlink" title="置顶文章 Pinned article"></a>置顶文章 Pinned article</h3><p>在文章的 <a href="https://hexo.io/docs/front-matter" target="_blank" rel="noopener">Front-matter</a> 中增加一个 <code>sticky</code> 参数用来置顶，其值应为大于0的整数，表示置顶的优先级（未指定则默认为 0）。数字越大，文章越靠前。<br>Add a <code>sticky</code> parameter to the the post’s <a href="https://hexo.io/docs/front-matter" target="_blank" rel="noopener">Front-matter</a> to make the post pinned at the top of home page.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: example</span><br><span class="line">sticky: 100</span><br><span class="line">---</span><br></pre></td></tr></table></figure><p>采用 <code>sticky</code> 关键词是因为这个在 <a href="https://github.com/next-theme/hexo-theme-next" target="_blank" rel="noopener">NexT 主题</a>中已经定义了置顶样式，因此可以直接拿来使用。</p><h3 id="隐藏文章-Hide-article"><a href="#隐藏文章-Hide-article" class="headerlink" title="隐藏文章 Hide article"></a>隐藏文章 Hide article</h3><p>在文章的 Front-matter 中增加一个 <code>hide</code> 参数用来隐藏。<br>Add a <code>hide</code> parameter to the the post’s Front-matter to hide the post from home page.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: example</span><br><span class="line">hide: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure><h3 id="隐藏特定分类中的文章-Hide-articles-in-specified-categories"><a href="#隐藏特定分类中的文章-Hide-articles-in-specified-categories" class="headerlink" title="隐藏特定分类中的文章 Hide articles in specified categories"></a>隐藏特定分类中的文章 Hide articles in specified categories</h3><p>在 Hexo 的 <code>_config.yml</code> 中可以通过 <code>hide_categories</code> 选项设置隐藏某个分类下的文章，例如：<br>You can hide articles in specified categories by setting <code>hide_categories</code> in hexo <code>_config.yml</code>, e.g.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hide_categories:</span><br><span class="line">  - categorie1</span><br><span class="line">  - categorie2</span><br></pre></td></tr></table></figure><p><img src="http://img.netbian.com/file/2020/0530/small7ac98fc9d54c2a98f23fad308c4d20cc1590814888.jpg" alt="描述信息"></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> mypack;         <span class="comment">//相当于一个目录</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Hello World!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 测试内容 </tag>
-            
-            <tag> Java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2020/06/06/hello-world/"/>
-      <url>/2020/06/06/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-      
-      
       
     </entry>
     
