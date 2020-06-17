@@ -5,8 +5,8 @@
     
     <entry>
       <title>JAVA基础知识点</title>
-      <link href="/2020/06/18/java/javase/javase/"/>
-      <url>/2020/06/18/java/javase/javase/</url>
+      <link href="/2020/06/18/java/javaSE/javaSE/"/>
+      <url>/2020/06/18/java/javaSE/javaSE/</url>
       
         <content type="html"><![CDATA[<h1 id="JAVA基础知识点"><a href="#JAVA基础知识点" class="headerlink" title="JAVA基础知识点"></a>JAVA基础知识点</h1><p>编写中</p>]]></content>
       
@@ -16,6 +16,8 @@
           <category> 主题 </category>
           
           <category> JAVA </category>
+          
+          <category> JAVA基础 </category>
           
       </categories>
       
@@ -55,9 +57,9 @@
             
             <tag> 主题 </tag>
             
-            <tag> JAVA </tag>
-            
             <tag> JUC </tag>
+            
+            <tag> JAVA </tag>
             
         </tags>
       
@@ -76,6 +78,8 @@
       <categories>
           
           <category> JAVA </category>
+          
+          <category> JVM </category>
           
       </categories>
       
@@ -104,6 +108,8 @@
           
           <category> JAVA </category>
           
+          <category> JVM </category>
+          
       </categories>
       
       
@@ -130,6 +136,8 @@
       <categories>
           
           <category> JAVA </category>
+          
+          <category> JVM </category>
           
       </categories>
       
@@ -158,6 +166,8 @@
           
           <category> JAVA </category>
           
+          <category> JVM </category>
+          
       </categories>
       
       
@@ -185,6 +195,8 @@
           
           <category> JAVA </category>
           
+          <category> JVM </category>
+          
       </categories>
       
       
@@ -211,6 +223,8 @@
       <categories>
           
           <category> JAVA </category>
+          
+          <category> JVM </category>
           
       </categories>
       
@@ -272,7 +286,7 @@
           
           <category> 主题 </category>
           
-          <category> 生活 </category>
+          <category> 感悟 </category>
           
       </categories>
       
