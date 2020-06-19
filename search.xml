@@ -4,9 +4,38 @@
   
     
     <entry>
+      <title>方法区</title>
+      <link href="/2020/06/19/java/jvm/2-6/"/>
+      <url>/2020/06/19/java/jvm/2-6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h1><ul><li>方法区（Method Area）和Java堆一样，是各个线程共享的内存区域。</li><li>《Java虚拟机规范》当中把方法区描述为堆的一个逻辑部分，但是它有一个别名叫<strong>“非堆”</strong>，目的是与Java堆区分开来。</li><li>jdk7以前，把方法区称为永久代。jdk8开始，使用元空间取代了永久代。</li></ul><blockquote><p>jdk7把原本存放在永久代的字符串常量池，静态变量等移到了堆中，直到jdk8才用元空间（Metaspace）替代了永久代，元空间在本地内存中。之所以放入本地内存我感觉就是加大了方法区的内存，避免了很多由于类加载过多导致的OOM。</p></blockquote><ul><li>方法区的大小决定了系统可以保存多少个类，如果系统定义了太多的类，导致方法区溢出，就会导致OOM。</li><li>方法区同样存在垃圾收集。</li></ul><blockquote><p>这个垃圾收集的条件很苛刻也就为什么说是永久代一样，永久存在了，后续说明。</p></blockquote><h2 id="方法区大小设置"><a href="#方法区大小设置" class="headerlink" title="方法区大小设置"></a>方法区大小设置</h2><p><strong>jdk7以前：</strong></p><ul><li><p>-XX:PermSize来设置永久代初始内存大小 默认20.75M</p></li><li><p>-XX:MaxPermiSize来设置永久代最大可分配空间。32位机器默认64M，64位机器82M</p></li></ul><blockquote><p>JVM加载的类信息容量超出最大值会报OutOfMemoryError:PermGen space</p></blockquote><p><strong>jdk8以后：</strong></p><ul><li>-XX:MetspaceSize和-XX:MaxMetaspaceSize设置元数据区大小。</li></ul><blockquote><p>windows下，-XX:MetspaceSize 默认为21M，-XX:MaxMetaspaceSize默认为<strong>-1</strong>就是没有限制。(这个-1我参考网上的都说的-1，但是我看自己的程序的默认参数不是-1。反正这个了解就好，没必要去记这个)</p><p>内存溢出错误<strong>java.lang.OutOfMemoryError:Metaspace</strong></p></blockquote><p><img src="https://image.cclblog.cn/blog/20200619153032.png" alt=""></p><h2 id="方法区的内部结构"><a href="#方法区的内部结构" class="headerlink" title="方法区的内部结构"></a>方法区的内部结构</h2><p>方法区保存着被加载过的每一个类的信息，这些信息由类加载器在加载类的时候，从类的源文件抽取出来。</p><blockquote><p>方法区保存的起始就是每个类的一个模板，Class的元数据。</p></blockquote><p><strong>这些信息有：</strong></p><p><img src="https://image.cclblog.cn/blog/20200619202435.png" alt=""></p><blockquote><p><strong>这些信息没有一个统一的标准，网上说什么的都有，这是我自己综合整理，我感觉这个比较全面。仅供参考啊</strong></p></blockquote><h3 id="类型信息"><a href="#类型信息" class="headerlink" title="类型信息"></a>类型信息</h3><p>对于每个加载的类型（类class、接口interface、枚举enum、注解annotation），JVM必须在方法区中存储以下类型信息：</p><ul><li>类的完整有效名称（包名.类名）</li></ul><blockquote><p>比如java.lang.String</p></blockquote><ul><li><p>类的直接父类的完整有效名</p></li><li><p>类型直接实现接口的有序列表</p></li></ul><blockquote><p>一个类实现的接口可能有多个，多以存放在有序列表中。</p></blockquote><ul><li>类的修饰符</li></ul><blockquote><p>比如public abstract</p></blockquote><hr><blockquote><p>这个就像是查户口一样，看一下你家的详细地址（类的完整有效名称），你的父亲是谁（父类完整有效名称），你的工作（你实现的哪些接口），还有你是什么人（类的修饰符）。</p></blockquote><h3 id="字段信息"><a href="#字段信息" class="headerlink" title="字段信息"></a>字段信息</h3><ul><li>字段修饰符（public、protect、private、default）</li><li>字段声明的顺序</li><li>字段的类型</li><li>字段的名称</li></ul><h3 id="方法信息"><a href="#方法信息" class="headerlink" title="方法信息"></a>方法信息</h3><ul><li>方法名称</li><li>方法的返回类型（包括void）</li><li>方法参数的类型、数目和顺序</li><li>方法的修饰符（public、private、protected、static、final、synchronized、native、abstract）</li><li>方法的字节码（bytecodes）、操作数栈、局部变量表及大小（abstract和native方法除外）</li><li>异常表（abstract和native方法除外）</li></ul><blockquote><p>前面从未说过异常表这次详细分析</p><p>包括异常处理的<strong>开始位置、结束位置、代码处理在程序计数器中的偏移地址、被捕获异常类的常量池索引</strong></p></blockquote><p><img src="https://image.cclblog.cn/blog/20200619164030.png" alt=""></p><h3 id="类的常量池-运行时常量池"><a href="#类的常量池-运行时常量池" class="headerlink" title="类的常量池/运行时常量池"></a>类的常量池/运行时常量池</h3><p><img src="https://image.cclblog.cn/blog/20200619173204.png" alt=""></p><h4 id="类常量池-静态常量池"><a href="#类常量池-静态常量池" class="headerlink" title="类常量池(静态常量池)"></a>类常量池(静态常量池)</h4><p><img src="https://image.cclblog.cn/blog/20200619180101.png" alt=""></p><ul><li>class常量池用于存储编译器生成的各种<strong>字面量</strong>和<strong>符号引用</strong>。 </li></ul><p><img src="https://image.cclblog.cn/blog/20200619201759.png" alt=""></p><blockquote><p>红色的这几个我仅仅了解，无法说清楚，待我日后补充，其它的三种是网上常见的，并且只有这三种，基本上都是这样，我是参考《深入理解Java虚拟机》第三版 p218。</p></blockquote><ul><li>每个class文件都有一个class常量池。</li></ul><h4 id="运行时常量池-动态常量池"><a href="#运行时常量池-动态常量池" class="headerlink" title="运行时常量池(动态常量池)"></a>运行时常量池(动态常量池)</h4><ul><li>方法区的一部分</li><li>常量池表是Class文件的一部分，用于存放编译期生成的各种字面量与符号引用，这部分内容将在类加载后放到方法区的运行时常量池中。</li><li>运行时常量池包含多种不同的常量，包括编译器就已经明确的数值字面量，也包括到运行期解析后才能够获得的方法或者字段引用。此时不再是常量池中的符号地址了，这里变为了真实地址。</li></ul><blockquote><p>实际上在解析阶段只有能确定唯一版本的方法才能将符号引用直接替换为直接引用，这里也就是前面的章节说过的非虚方法。</p><p>Byte，Short，Integer，Long，Character，Boolean这5中包装类默认创建了数值[-128,127]的相应类型的缓存数据，但是超过此范围仍然回去创建新的对象。这也就是包装类比较是否相等要使用equals()。（Double，Float没有实现常量池技术）</p></blockquote><ul><li>运行时常量池相对于Class文件常量池的另外一个特征就是具备动态性。</li></ul><blockquote><p>String.intern()方法 </p></blockquote><h3 id="非final修饰的类变量"><a href="#非final修饰的类变量" class="headerlink" title="非final修饰的类变量"></a>非final修饰的类变量</h3><ul><li>静态变量和类是关联在一起的，随着类的加载而加载。</li><li>类变量被类的所有实例共享，即使没有类实例时也可以访问。</li></ul><blockquote><p><strong>final型变量的值是在编译期就被确定了，因此被保存在常量池中。</strong></p></blockquote><h3 id="对类加载器的引用"><a href="#对类加载器的引用" class="headerlink" title="对类加载器的引用"></a>对类加载器的引用</h3><ul><li><p>jvm必须知道一个类型是由启动加载器加载的还是由用户类加载器加载的。如果一个类型是由用户类加载器加载的，那么jvm会将这个类加载器的一个引用作为类型信息的一部分保存在方法区中。</p></li><li><p>jvm在动态链接的时候需要这个信息。当解析一个类型到另一个类型的引用的时候，jvm需要保证这两个类型的类加载器是相同的。这对jvm区分名字空间的方式是至关重要的。</p></li><li><p>比较两个类是否相等也需要比较类加载器是否是相同的。</p></li><li><p>垃圾收集的时候也需要参考这个类的加载器是否不再使用！</p></li></ul><h3 id="对Class类的引用"><a href="#对Class类的引用" class="headerlink" title="对Class类的引用"></a>对Class类的引用</h3><p>jvm为每个加载的类都创建一个java.lang.Class的实例（<strong>存储在堆上</strong>）。而jvm必须以某种方式把Class的这个实例和存储在方法区中的类型数据联系起来， 因此，类的元数据里面保存了一个Class对象的引用；</p><h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><blockquote><p><strong>引用：</strong></p><p>为了提高访问效率，必须仔细的设计存储在方法区中的数据信息结构。除了以上讨论的结构，jvm的实现者还可以添加一些其他的数据结构，如方法表。jvm对每个加载的非虚拟类的类型信息中都添加了一个方法表，方法表是一组对类实例方法的直接引用(包括从父类继承的方法。jvm可以通过方法表快速激活实例方法。(译者：这里的方法表与C++中的虚拟函数表一样，但java方法全都 是virtual的，自然也不用虚拟二字了。正像java宣称没有 指针了，其实java里全是指针。更安全只是加了更完备的检查机制，但这都是以牺牲效率为代价的,个人认为java的设计者 始终是把安全放在效率之上的，所有java才更适合于网络开发)</p></blockquote><h2 id="栈、堆、方法区的交互"><a href="#栈、堆、方法区的交互" class="headerlink" title="栈、堆、方法区的交互"></a>栈、堆、方法区的交互</h2><p><img src="https://image.cclblog.cn/blog/20200619211848.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JAVA </category>
+          
+          <category> JVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JAVA </tag>
+            
+            <tag> JVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JAVA基础知识点</title>
-      <link href="/2020/06/18/java/javaSE/javaSE/"/>
-      <url>/2020/06/18/java/javaSE/javaSE/</url>
+      <link href="/2020/06/18/java/javase/javaSE/"/>
+      <url>/2020/06/18/java/javase/javaSE/</url>
       
         <content type="html"><![CDATA[<h1 id="JAVA基础知识点"><a href="#JAVA基础知识点" class="headerlink" title="JAVA基础知识点"></a>JAVA基础知识点</h1><p>编写中</p>]]></content>
       
@@ -304,7 +333,7 @@
       <link href="/2020/06/06/java/jvm/jvm/"/>
       <url>/2020/06/06/java/jvm/jvm/</url>
       
-        <content type="html"><![CDATA[<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><ol><li><strong><a href="/2020/06/08/java/jvm/1-1/">JVM简介</a></strong></li></ol><hr><h2 id="内存结构篇"><a href="#内存结构篇" class="headerlink" title="内存结构篇"></a>内存结构篇</h2><ol><li><strong><a href="/2020/06/09/java/jvm/2-1/">类加载子系统</a></strong> </li><li><a href="/2020/06/12/java/jvm/2-2/"><strong>虚拟机栈</strong></a></li><li><a href="/2020/06/17/java/jvm/2-3/">本地方法栈</a></li><li><strong><a href="/2020/06/12/java/jvm/2-4/">程序计数器</a></strong></li><li><strong><a href="/2020/06/17/java/jvm/2-5/">堆</a></strong></li><li>方法区（×）</li><li>执行引擎（×）</li><li>本地方法接口<strong>（略）</strong></li></ol><hr><h2 id="垃圾回收篇"><a href="#垃圾回收篇" class="headerlink" title="垃圾回收篇"></a>垃圾回收篇</h2><ol><li>垃圾收集器（×）</li><li>内存分配策略（×）</li></ol><h2 id="性能监控与调优篇"><a href="#性能监控与调优篇" class="headerlink" title="性能监控与调优篇"></a>性能监控与调优篇</h2><ol><li>性能监控（×）</li><li>性能调优（×）</li></ol><hr><h2 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h2><ol><li>StringTable（×）</li><li>字节码（×）</li></ol><hr><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol><li>…（×）</li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><ol><li><strong><a href="/2020/06/08/java/jvm/1-1/">JVM简介</a></strong></li></ol><hr><h2 id="内存结构篇"><a href="#内存结构篇" class="headerlink" title="内存结构篇"></a>内存结构篇</h2><ol><li><strong><a href="/2020/06/09/java/jvm/2-1/">类加载子系统</a></strong> </li><li><a href="/2020/06/12/java/jvm/2-2/"><strong>虚拟机栈</strong></a></li><li><a href="/2020/06/17/java/jvm/2-3/">本地方法栈</a></li><li><strong><a href="/2020/06/12/java/jvm/2-4/">程序计数器</a></strong></li><li><strong><a href="/2020/06/17/java/jvm/2-5/">堆</a></strong></li><li><strong><a href="/2020/06/19/java/jvm/2-6/">方法区</a></strong></li><li>执行引擎（×）</li><li>本地方法接口<strong>（略）</strong></li></ol><hr><h2 id="垃圾回收篇"><a href="#垃圾回收篇" class="headerlink" title="垃圾回收篇"></a>垃圾回收篇</h2><ol><li>垃圾收集器（×）</li><li>内存分配策略（×）</li></ol><h2 id="性能监控与调优篇"><a href="#性能监控与调优篇" class="headerlink" title="性能监控与调优篇"></a>性能监控与调优篇</h2><ol><li>性能监控（×）</li><li>性能调优（×）</li></ol><hr><h2 id="进阶篇"><a href="#进阶篇" class="headerlink" title="进阶篇"></a>进阶篇</h2><ol><li>StringTable（×）</li><li>字节码（×）</li></ol><hr><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol><li>…（×）</li></ol><hr><p>​    <strong>要快速的学习JVM就要了解你写的一行代码假如Car car = new Car();这个到底在虚拟机中是怎么加载，分配内存等等，然后怎么被回收处理，等，综合性的学习才能学得更快记得更牢固，起初就是一个知识点知识点的学，堆、栈、方法区…就像一开始学是一个点，然后变成碎片，这些组合起来就是jvm的内存结构，慢慢的组成一个网（整个JVM网络），只要组成一个网络化的知识，我说的是并不是这个网络有多么牢固，要明白不求甚解这个道理，尤其是JVM，知识点互相穿插，并不是一个知识点你就能很透彻，有可能你学了别的知识点，然后再看前面恍然大悟，往往我就是这样。而是你有了个整体的认识，就像从上向下看，一目了然，我认为这就是大局观，一定要有这种观念，知识网络化，小到一个知识点，大到系统的一个架构，一切都是思想，一定要有这个思想，显然我在JVM这个上面功力明显不足，我现在还停留在碎片的阶段（2020-06-19），我并不能把这个JVM特别清楚详细的描述，更别说深入的了解，我只是在尝试深入了解，其中有的点我并不是很清楚，形成一个基本的网络时间肯定不会很长，然后慢慢巩固这个网络，不求甚解这个方法形成网络后，肯定不如你平常研究某个知识点掌握那么的牢固，这种情况下，往往是别人问你你了解，知道有这个知识点，但是只能说个支支吾吾大概，这时无需感觉很无奈，感觉自己白学了，首先有了一个知识网络，然后在逐个点的巩固，不断的巩固，总有一天，（其实我非常烦说这个“总有一天” 这到底是哪一天？但是这个确实需要你的用心的，如果你用心时间肯定不会很长，否则确实就是“总有一天了。。。”）这个网络必定会变得非常健壮。</strong></p><blockquote><p>JVM网络，java网络，框架网络等等整合组成整个体系，相信自己肯定有一天会发生质的变化，短期内可能并没有很好地效果，反而会感觉自己哪哪都掌握不牢！！质的变化，对计算机这个这个体系有自己的认识，并不仅仅局限于Java这门语言。</p></blockquote><p>​    学习了JVM这个之后，真后悔没早点学这个，这个真的不是很快就能学习的，不像框架一样基本学一学就用上了，这个需要自己用心去理解，比较偏理论和实践，自己永远不真正环境的调优，只是简单的自我尝试那些效果并不好，应该长期持续的学习并且实战演练，<strong>实战是进步最快的</strong>。我原本打算的是最后学一学的。。。哎然后才发现JVM这个太重要了，这个太有魅力了，真正的让你接触到了一点java代码到底怎么执行的，自己写代码也不少了，从来没有研究过，哎，自己始终在“上层”，混迹“上流社会”，学习了这个让我明白了每一行代码都干了什么（当然不能是每一行那么夸张，自己还没这个水平），让我对内存的分配，一个类的加载，从前我从来没注意过，因为平常写的那些代码怎么可能OOM（顶多研究递归报一个栈溢出），学习了JVM让我对java思想有了很大的进步，不仅是java，是编程的思想，面向对象的思想。</p><p>​    <strong>编程的道路真的是哪有什么岁月静好,不过是有人替你负重前行！就像自己用springboot、springcloud，自己写代码越来越简单，不能总是期待等着出现更好更简单使用的框架，改变自己，别等着别人来改变你！</strong></p><blockquote><p>个人理解，随笔记录，实际上还有很多点，自己的感悟，自己这大学期间的感悟，和生活中的感悟，在<a href="/2020/06/06/life/life/">感悟</a>中慢慢分享。</p></blockquote>]]></content>
       
       
       <categories>
@@ -337,7 +366,7 @@
       <link href="/2020/06/06/life/life/"/>
       <url>/2020/06/06/life/life/</url>
       
-        <content type="html"><![CDATA[<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol><li>算法/多线程/JVM/网络/MySql/Redis/</li><li>提高架构思想/思维</li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ol><li>初心！</li></ol>]]></content>
       
       
       <categories>
@@ -351,9 +380,9 @@
       
         <tags>
             
-            <tag> 主题 </tag>
-            
             <tag> 感悟 </tag>
+            
+            <tag> 主题 </tag>
             
         </tags>
       
