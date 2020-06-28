@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>自动装箱与拆箱 | 琦玉老师</title><meta name="description" content="详解自动装箱与拆箱！！！"><meta name="keywords" content="JAVA基础,JAVA"><meta name="author" content="褚超亮"><meta name="copyright" content="褚超亮"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="自动装箱与拆箱"><meta name="twitter:description" content="详解自动装箱与拆箱！！！"><meta name="twitter:image" content="https://www.cclblog.cn/img/avatar.png"><meta property="og:type" content="article"><meta property="og:title" content="自动装箱与拆箱"><meta property="og:url" content="https://www.cclblog.cn/2020/06/20/java/javase/5/"><meta property="og:site_name" content="琦玉老师"><meta property="og:description" content="详解自动装箱与拆箱！！！"><meta property="og:image" content="https://www.cclblog.cn/img/avatar.png"><meta property="article:published_time" content="2020-06-20T13:22:59.000Z"><meta property="article:modified_time" content="2020-06-28T04:48:12.460Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><link rel="canonical" href="https://www.cclblog.cn/2020/06/20/java/javase/5/"><link rel="prev" title="成员变量与局部变量" href="https://www.cclblog.cn/2020/06/21/java/javase/15/"><link rel="next" title="方法区" href="https://www.cclblog.cn/2020/06/20/java/jvm/2-7/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: {"bookmark":{"message_prev":"按","message_next":"键将本页加入书签"},"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#2d3035","position":"top-center"},
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">25</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">15</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自动装箱与拆箱"><span class="toc-text">自动装箱与拆箱</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-text">例题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">琦玉老师</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">自动装箱与拆箱</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-20 21:22:59"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-20</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-28 12:48:12"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-28</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JAVA/">JAVA</a><i class="fa fa-angle-right post-meta__separator" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/JAVA/JAVA%E5%9F%BA%E7%A1%80/">JAVA基础</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">1k</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="自动装箱与拆箱"><a href="#自动装箱与拆箱" class="headerlink" title="自动装箱与拆箱"></a>自动装箱与拆箱</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>自动装箱：</strong>就是自动将基本数据类型包装为包装器类型；</p>
+<p><strong>自动拆箱：</strong>就是自动将包装器类型转换为基本数据类型；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Interger i = <span class="number">1</span>; <span class="comment">// 拆箱</span></span><br><span class="line"><span class="keyword">int</span> n = i; <span class="comment">// 装箱</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>这个装箱拆箱操作是jdk5的新特性</strong> </p>
+<ul>
+<li>JDK5之前的方式：比如Integer i = Integer.valueof(5);（这里5为基本类型int，Integer包装类利用valueof()方法将其转换为Integer类型）或者int i = i.intValue();（这里基本类型利用intValue()方法将Integer类型转换为基本类型int）。</li>
+<li>JDK5之后的方式：比如①Integer i = 5;或者②int i = new Integer(100);，这里基本类型与包装类之间可直接操作，而①的操作就是自动装箱，②的操作就是自动拆箱。</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>More Actions  默认值</th>
+<th>存储需求（字节）</th>
+<th>取值范围</th>
+<th>示例</th>
+<th>包装类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>0</td>
+<td>1</td>
+<td>-2^7—2^7-1</td>
+<td>byte b=10;</td>
+<td><strong>Byte</strong></td>
+</tr>
+<tr>
+<td>char</td>
+<td>‘ \u0000′</td>
+<td>2</td>
+<td>0—2^16-1</td>
+<td>char c=’c’ ;</td>
+<td><strong>Character</strong></td>
+</tr>
+<tr>
+<td>short</td>
+<td>0</td>
+<td>2</td>
+<td>-2^15—2^15-1</td>
+<td>short s=10;</td>
+<td><strong>Short</strong></td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+<td>4</td>
+<td>-2^31—2^31-1</td>
+<td>int i=10;</td>
+<td><strong>Integer</strong></td>
+</tr>
+<tr>
+<td>long</td>
+<td>0</td>
+<td>8</td>
+<td>-2^63—2^63-1</td>
+<td>long o=10L;</td>
+<td><strong>Long</strong></td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0f</td>
+<td>4</td>
+<td>-2^31—2^31-1</td>
+<td>float f=10.0F</td>
+<td><strong>Float</strong></td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0d</td>
+<td>8</td>
+<td>-2^63—2^63-1</td>
+<td>double d=10.0;</td>
+<td><strong>Double</strong></td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>false</td>
+<td>不确定</td>
+<td>true\false</td>
+<td>boolean flag=true;</td>
+<td><strong>Boolean</strong></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>boolean的大小java规范并没有明确给出具体查看：</p>
+<p><a href="">https://www.cnblogs.com/wangtianze/p/6690665.html</a></p>
+</blockquote>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p><strong>1、有如下4条语句：()</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer i01=<span class="number">59</span>;</span><br><span class="line"><span class="keyword">int</span> i02=<span class="number">59</span>;</span><br><span class="line">Integer i03=Integer.valueOf(<span class="number">59</span>);</span><br><span class="line">Integer i04=<span class="keyword">new</span> Integer(<span class="number">59</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>以下输出结果为false的是:</strong></p>
+<ul>
+<li>System.out.println(i01==i02);</li>
+<li>System.out.println(i01==i03);</li>
+<li>System.out.println(i03==i04);</li>
+<li>System.out.println(i02==i04);</li>
+</ul>
+<blockquote>
+<span class="hide-inline"><a class="hide-button button--primary button--animated" style="">查看答案
+  </a><span class="hide-content">答案：D</span></span>
+
+<p><strong>解析：</strong></p>
+<ul>
+<li>无论如何，Integer与new Integer不会相等。不会经历拆箱过程。</li>
+<li>两个都是非new出来的Integer，如果数在-128到127之间，则是true,否则为false；java在编译Integer i2 = 128的时候,被翻译成-&gt; Integer i2 = Integer.valueOf(128);而valueOf()函数会对-128到127之间的数进行缓存。</li>
+</ul>
+<blockquote>
+<p>Integer.valueOf方法中也有判断，如果传递的整型变量&gt;= -128并且小于127时会返回IntegerCache类中一个静态数组中的某一个对象， 否则会返回一个新的Integer对象,代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">assert</span> IntegerCache.high &gt;= <span class="number">127</span>;</span><br><span class="line">     <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">         <span class="keyword">return</span> IntegerCache.[i + (-IntegerCache.low)];</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<ul>
+<li><strong>两个都是new出来的,都为false</strong></li>
+<li><strong>int和integer(无论new否)比，都为true，因为会把Integer自动拆箱为int再去比</strong></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>我认为理论看的再多也不如实际的去做题，理论知道的多，题目不一定做得对，做题可以巩固自己的理论知识。</p>
+</blockquote>
+<p><strong>2、下面程序的输出结果是什么？（这个是我引用参考链接中第二个链接中的一个例子）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         </span><br><span class="line">        Integer a = <span class="number">1</span>;</span><br><span class="line">        Integer b = <span class="number">2</span>;</span><br><span class="line">        Integer c = <span class="number">3</span>;</span><br><span class="line">        Integer d = <span class="number">3</span>;</span><br><span class="line">        Integer e = <span class="number">321</span>;</span><br><span class="line">        Integer f = <span class="number">321</span>;</span><br><span class="line">        Long g = <span class="number">3L</span>;</span><br><span class="line">        Long h = <span class="number">2L</span>;</span><br><span class="line">         </span><br><span class="line">        System.out.println(c==d); <span class="comment">// 1</span></span><br><span class="line">        System.out.println(e==f); <span class="comment">// 2</span></span><br><span class="line">        System.out.println(c==(a+b)); <span class="comment">// 3</span></span><br><span class="line">        System.out.println(c.equals(a+b)); <span class="comment">// 4</span></span><br><span class="line">        System.out.println(g==(a+b)); <span class="comment">// 5</span></span><br><span class="line">        System.out.println(g.equals(a+b)); <span class="comment">// 6 </span></span><br><span class="line">        System.out.println(g.equals(a+h)); <span class="comment">// 7</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<span class="hide-inline"><a class="hide-button button--primary button--animated" style="">查看答案
+  </a><span class="hide-content">答案：1.true 2.false 3.true 4.true 5.true 6.false 7.true</span></span>
+
+<p><strong>解析：</strong></p>
+<ol>
+<li>c==d：因为Integer中缓存的存在，如果数在[-128,127] (包括边界)，则是true,否则为false</li>
+<li>e==f：同1</li>
+<li>c=(a + b)：a + b 这个操作会自动拆箱结果为int</li>
+<li>c.equals(a+b)：无需解释</li>
+<li>(g==(a+b))：同3 a+b=&gt; int g为Long自动拆箱为long 然后int类型自动提升为long </li>
+<li>g.equals(a+b)：a+b 为int 类型，Long 与 相同值的 包装类 用equals比较时，如果传入的类型不是Long,那么全部返回false，Long类中的equals()源码：</li>
+</ol>
+<p><img src="https://image.cclblog.cn/blog/20200628122339.png" alt=""></p>
+<ol start="7">
+<li>g.equals(a+b)：true a+h 结果会向精度大的转换 为long类型</li>
+</ol>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="">https://www.cnblogs.com/wang-yaz/p/8516151.html</a></p>
+<p><a href="">https://www.cnblogs.com/dolphin0520/p/3780005.html</a></p>
+<blockquote>
+<p>这两篇文章从源码以及jvm分析了原理，并且写的很好，我就不再说明了。</p>
+</blockquote>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">褚超亮</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.cclblog.cn/2020/06/20/java/javase/5/">https://www.cclblog.cn/2020/06/20/java/javase/5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.cclblog.cn" target="_blank">琦玉老师</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA%E5%9F%BA%E7%A1%80/">JAVA基础</a><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a></div><div class="post_share"><div class="social-share" data-image="https://image.cclblog.cn/blog/20200628163855.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="/img/wechat.png" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="/img/alipay.jpg" alt="支付宝"/><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/06/21/java/javase/15/"><img class="prev_cover" src="[&quot;https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg&quot;]" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">成员变量与局部变量</div></div></a></div><div class="next-post pull_right"><a href="/2020/06/20/java/jvm/2-7/"><img class="next_cover" src="[&quot;https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg&quot;]" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">方法区</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/06/16/java/javase/1/" title="重载与重写规则"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-16</div><div class="relatedPosts_title">重载与重写规则</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/17/java/javase/2/" title="继承、封装、多态"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-17</div><div class="relatedPosts_title">继承、封装、多态</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/21/java/javase/15/" title="成员变量与局部变量"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-21</div><div class="relatedPosts_title">成员变量与局部变量</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/java/javase/3/" title="Java修饰符大全"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-18</div><div class="relatedPosts_title">Java修饰符大全</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/08/java/jvm/1-1/" title="JVM简介"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-08</div><div class="relatedPosts_title">JVM简介</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/10/java/jvm/2-1-1/" title="clinit()与init()"><img class="relatedPosts_cover" src="https://image.cclblog.cn/a3bd9cb49cbd3ffa4c9e178577b6dffe.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-06-10</div><div class="relatedPosts_title">clinit()与init()</div></div></a></div></div><div class="clear_both"></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By 褚超亮</div><div class="footer_custom_text"><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank" rel="noopener"><img style="width:60px;" src="/img/logo.png" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"/><span>冀ICP备19034261号-2</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script id="ribbon_piao" mobile="true" src="/js/third-party/piao.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@3/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script></body></html>
