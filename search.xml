@@ -22,9 +22,9 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -34,8 +34,8 @@
     
     <entry>
       <title>模板方法模式</title>
-      <link href="/2020/07/25/java/designMode/TemplateMethosPattern/"/>
-      <url>/2020/07/25/java/designMode/TemplateMethosPattern/</url>
+      <link href="/2020/07/25/java/designMode/TemplateMethodPattern/"/>
+      <url>/2020/07/25/java/designMode/TemplateMethodPattern/</url>
       
         <content type="html"><![CDATA[<h1 id="模板方法模式（TemplateMethodPattern）"><a href="#模板方法模式（TemplateMethodPattern）" class="headerlink" title="模板方法模式（TemplateMethodPattern）"></a>模板方法模式（TemplateMethodPattern）</h1><h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p><img src="https://image.cclblog.cn/Snipaste_2020-07-27_21-57-06.png" alt=""></p><p>AbstractRifle抽象步枪类，其中RifleTemplate为步枪模板方法，先装弹后射击。。</p><h1 id="实现一"><a href="#实现一" class="headerlink" title="实现一"></a>实现一</h1><h2 id="抽象模板"><a href="#抽象模板" class="headerlink" title="抽象模板"></a>抽象模板</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 射击</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 装弹中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">RifleTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        reloading();</span><br><span class="line">        fire();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="具体的模板类"><a href="#具体的模板类" class="headerlink" title="具体的模板类"></a>具体的模板类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">M4A1</span> <span class="keyword">extends</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"M4A1射击，哒哒哒"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"M4A1装弹中，5.56mm"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ak47</span> <span class="keyword">extends</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AK47射击，乌拉乌拉"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AK47装弹中，7.62mm"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        M4A1 m4A1 = <span class="keyword">new</span> M4A1();</span><br><span class="line">        m4A1.RifleTemplate();</span><br><span class="line">        Ak47 ak47 = <span class="keyword">new</span> Ak47();</span><br><span class="line">        ak47.RifleTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>M4A1装弹中，5.56mm<br>M4A1射击，哒哒哒<br>AK47装弹中，7.62mm<br>AK47射击，乌拉乌拉</p></blockquote><h1 id="实现二"><a href="#实现二" class="headerlink" title="实现二"></a>实现二</h1><p>改变实验一中的需求，要求AK47不用填充子弹直接就可以射击，M4A1可以控制是否填充子弹。</p><p><img src="https://image.cclblog.cn/Snipaste_2020-07-27_22-55-44.png" alt=""></p><h2 id="抽象模板-1"><a href="#抽象模板-1" class="headerlink" title="抽象模板"></a>抽象模板</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 射击</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 装弹中</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">RifleTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isReloading()) &#123;</span><br><span class="line">            reloading();</span><br><span class="line">        &#125;</span><br><span class="line">        fire();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断是否需要装弹</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> true 需要 false 不需要</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isReloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="具体的模板类-1"><a href="#具体的模板类-1" class="headerlink" title="具体的模板类"></a>具体的模板类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">M4A1</span> <span class="keyword">extends</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> reloading;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">M4A1</span><span class="params">(<span class="keyword">boolean</span> reloading)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reloading = reloading;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"M4A1射击，哒哒哒"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"M4A1装弹中，5.56mm"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isReloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.reloading;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ak47</span> <span class="keyword">extends</span> <span class="title">AbstractRifle</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">fire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AK47射击，乌拉乌拉"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AK47装弹中，7.62mm"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isReloading</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="测试类-1"><a href="#测试类-1" class="headerlink" title="测试类"></a>测试类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        M4A1 m4A1 = <span class="keyword">new</span> M4A1(<span class="keyword">false</span>); <span class="comment">// 可以自己选择true或者false</span></span><br><span class="line">        m4A1.RifleTemplate();</span><br><span class="line">        Ak47 ak47 = <span class="keyword">new</span> Ak47();</span><br><span class="line">        ak47.RifleTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>M4A1射击，哒哒哒<br>AK47射击，乌拉乌拉</p></blockquote><h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><blockquote><p>我理解的模板模式就是和它的名字一样，定义了一个对象的一个框架，也就是模板，具体的实现交由子类来。还可以这样看，就是将几个对象的公有的一些方法抽象到一个类中，这些类要有一些共性，就比如本例子中的M4A1和AK47都是现安装子弹然后在射击，要是每个类都这些模板方法都不一样，那得弄出很多个模板方法。。。不过幸好还有实现二中的方式缓解这种情况。如果实在不可缓解我感觉是不是不合适用模板方法考虑别的设计模式。。或者对这个模板方法进行改进。这个模板方法模式重用性好，扩展性也好满足了开闭原则， 但是由于继承这层关系，万一那个抽象模板发生变动，其子类全部需要改变。。</p></blockquote><p>总的来说，我感觉这个模板方法适合：假如有一个复杂的算法，其中某一个小部分交给子类去实现，而不能像本例子中的那样抽象模板中的模板方法全部都是由子类实现的。这可以参照AQS中在acquire方法中只有tryAcquire方法是交由子类实现的，调用本类的tryAcquire方法抛出一个异常，其它的算法均为自己实现。这样更加的灵活。</p><blockquote><p>这个模板方法实际上不就是继承+重写吗。。AQS中的tryAcquire虽然叫模板方法模式，就是不同类继承重写这个方法。父类中某些方法具体在子类中延迟实现。</p></blockquote><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
@@ -51,9 +51,9 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -169,9 +169,9 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -231,9 +231,9 @@
       
         <tags>
             
-            <tag> 设计模式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -391,7 +391,7 @@
       <link href="/2020/06/28/java/theme/design_mode/"/>
       <url>/2020/06/28/java/theme/design_mode/</url>
       
-        <content type="html"><![CDATA[<h1 id="程序设计原则（06）"><a href="#程序设计原则（06）" class="headerlink" title="程序设计原则（06）"></a>程序设计原则（06）</h1><h3 id="1-单一职责原则"><a href="#1-单一职责原则" class="headerlink" title="1.单一职责原则"></a>1.单一职责原则</h3><h3 id="2-里氏替换原则"><a href="#2-里氏替换原则" class="headerlink" title="2.里氏替换原则"></a>2.里氏替换原则</h3><h3 id="3-依赖倒置原则"><a href="#3-依赖倒置原则" class="headerlink" title="3.依赖倒置原则"></a>3.依赖倒置原则</h3><h3 id="4-接口隔离原则"><a href="#4-接口隔离原则" class="headerlink" title="4.接口隔离原则"></a>4.接口隔离原则</h3><h3 id="5-迪米特法则"><a href="#5-迪米特法则" class="headerlink" title="5.迪米特法则"></a>5.迪米特法则</h3><h3 id="6-开闭原则"><a href="#6-开闭原则" class="headerlink" title="6.开闭原则"></a>6.开闭原则</h3><h1 id="创建型（05）"><a href="#创建型（05）" class="headerlink" title="创建型（05）"></a>创建型（05）</h1><h3 id="1-单例模式（√）"><a href="#1-单例模式（√）" class="headerlink" title="1.单例模式（√）"></a><a href="/2020/07/09/java/designMode/SingletonPattern">1.单例模式</a>（√）</h3><h3 id="2-工厂-抽象工厂模式（√）"><a href="#2-工厂-抽象工厂模式（√）" class="headerlink" title="2.工厂/抽象工厂模式（√）"></a><a href="/2020/07/13/java/designMode/FactoryPattern">2.工厂/抽象工厂模式</a>（√）</h3><h3 id="4-建造者模式"><a href="#4-建造者模式" class="headerlink" title="4.建造者模式"></a><a href="/2020/07/27/java/designMode/BuilderPattern">4.建造者模式</a></h3><hr><h3 id="5-原型模式"><a href="#5-原型模式" class="headerlink" title="5.原型模式"></a>5.原型模式</h3><h1 id="结构型（07）"><a href="#结构型（07）" class="headerlink" title="结构型（07）"></a>结构型（07）</h1><h3 id="6-代理模式"><a href="#6-代理模式" class="headerlink" title="6.代理模式"></a>6.代理模式</h3><h3 id="7-桥接模式"><a href="#7-桥接模式" class="headerlink" title="7.桥接模式"></a>7.桥接模式</h3><h3 id="8-装饰者模式"><a href="#8-装饰者模式" class="headerlink" title="8.装饰者模式"></a>8.装饰者模式</h3><h3 id="9-适配器模式"><a href="#9-适配器模式" class="headerlink" title="9.适配器模式"></a>9.适配器模式</h3><hr><h3 id="10-门面模式"><a href="#10-门面模式" class="headerlink" title="10.门面模式"></a>10.门面模式</h3><h3 id="11-组合模式"><a href="#11-组合模式" class="headerlink" title="11.组合模式"></a>11.组合模式</h3><h3 id="12-享元模式"><a href="#12-享元模式" class="headerlink" title="12.享元模式"></a>12.享元模式</h3><h1 id="行为型-11"><a href="#行为型-11" class="headerlink" title="行为型(11)"></a>行为型(11)</h1><h3 id="13-观察者模式"><a href="#13-观察者模式" class="headerlink" title="13.观察者模式"></a>13.观察者模式</h3><h3 id="14-模板方法模式（√）"><a href="#14-模板方法模式（√）" class="headerlink" title="14.模板方法模式（√）"></a><a href="/2020/07/25/java/designMode/TemplateMethodPattern">14.模板方法模式（√）</a></h3><h3 id="15-策略模式"><a href="#15-策略模式" class="headerlink" title="15.策略模式"></a>15.策略模式</h3><h3 id="16-职责链模式"><a href="#16-职责链模式" class="headerlink" title="16.职责链模式"></a>16.职责链模式</h3><h3 id="17-迭代器模式"><a href="#17-迭代器模式" class="headerlink" title="17.迭代器模式"></a>17.迭代器模式</h3><h3 id="18-状态模式"><a href="#18-状态模式" class="headerlink" title="18.状态模式"></a>18.状态模式</h3><hr><h3 id="19-访问者模式"><a href="#19-访问者模式" class="headerlink" title="19.访问者模式"></a>19.访问者模式</h3><h3 id="20-备忘录模式"><a href="#20-备忘录模式" class="headerlink" title="20.备忘录模式"></a>20.备忘录模式</h3><h3 id="21-命令模式"><a href="#21-命令模式" class="headerlink" title="21.命令模式"></a>21.命令模式</h3><h3 id="22-解释器模式"><a href="#22-解释器模式" class="headerlink" title="22.解释器模式"></a>22.解释器模式</h3><h3 id="23-中介模式"><a href="#23-中介模式" class="headerlink" title="23.中介模式"></a>23.中介模式</h3>]]></content>
+        <content type="html"><![CDATA[<h1 id="程序设计原则（06）"><a href="#程序设计原则（06）" class="headerlink" title="程序设计原则（06）"></a>程序设计原则（06）</h1><h3 id="1-单一职责原则"><a href="#1-单一职责原则" class="headerlink" title="1.单一职责原则"></a>1.单一职责原则</h3><h3 id="2-里氏替换原则"><a href="#2-里氏替换原则" class="headerlink" title="2.里氏替换原则"></a>2.里氏替换原则</h3><h3 id="3-依赖倒置原则"><a href="#3-依赖倒置原则" class="headerlink" title="3.依赖倒置原则"></a>3.依赖倒置原则</h3><h3 id="4-接口隔离原则"><a href="#4-接口隔离原则" class="headerlink" title="4.接口隔离原则"></a>4.接口隔离原则</h3><h3 id="5-迪米特法则"><a href="#5-迪米特法则" class="headerlink" title="5.迪米特法则"></a>5.迪米特法则</h3><h3 id="6-开闭原则"><a href="#6-开闭原则" class="headerlink" title="6.开闭原则"></a>6.开闭原则</h3><h1 id="创建型（05）"><a href="#创建型（05）" class="headerlink" title="创建型（05）"></a>创建型（05）</h1><h3 id="1-单例模式（√）"><a href="#1-单例模式（√）" class="headerlink" title="1.单例模式（√）"></a><a href="/2020/07/09/java/designMode/SingletonPattern">1.单例模式（√）</a></h3><h3 id="2-工厂-抽象工厂模式（√）"><a href="#2-工厂-抽象工厂模式（√）" class="headerlink" title="2.工厂/抽象工厂模式（√）"></a><a href="/2020/07/13/java/designMode/FactoryPattern">2.工厂/抽象工厂模式（√）</a></h3><h3 id="4-建造者模式（√）"><a href="#4-建造者模式（√）" class="headerlink" title="4.建造者模式（√）"></a><a href="/2020/07/27/java/designMode/BuilderPattern">4.建造者模式（√）</a></h3><hr><h3 id="5-原型模式"><a href="#5-原型模式" class="headerlink" title="5.原型模式"></a>5.原型模式</h3><h1 id="结构型（07）"><a href="#结构型（07）" class="headerlink" title="结构型（07）"></a>结构型（07）</h1><h3 id="6-代理模式"><a href="#6-代理模式" class="headerlink" title="6.代理模式"></a>6.代理模式</h3><h3 id="7-桥接模式"><a href="#7-桥接模式" class="headerlink" title="7.桥接模式"></a>7.桥接模式</h3><h3 id="8-装饰者模式"><a href="#8-装饰者模式" class="headerlink" title="8.装饰者模式"></a>8.装饰者模式</h3><h3 id="9-适配器模式"><a href="#9-适配器模式" class="headerlink" title="9.适配器模式"></a>9.适配器模式</h3><hr><h3 id="10-门面模式"><a href="#10-门面模式" class="headerlink" title="10.门面模式"></a>10.门面模式</h3><h3 id="11-组合模式"><a href="#11-组合模式" class="headerlink" title="11.组合模式"></a>11.组合模式</h3><h3 id="12-享元模式"><a href="#12-享元模式" class="headerlink" title="12.享元模式"></a>12.享元模式</h3><h1 id="行为型-11"><a href="#行为型-11" class="headerlink" title="行为型(11)"></a>行为型(11)</h1><h3 id="13-观察者模式"><a href="#13-观察者模式" class="headerlink" title="13.观察者模式"></a>13.观察者模式</h3><h3 id="14-模板方法模式（√）"><a href="#14-模板方法模式（√）" class="headerlink" title="14.模板方法模式（√）"></a><a href="/2020/07/25/java/designMode/TemplateMethodPattern">14.模板方法模式（√）</a></h3><h3 id="15-策略模式"><a href="#15-策略模式" class="headerlink" title="15.策略模式"></a>15.策略模式</h3><h3 id="16-职责链模式"><a href="#16-职责链模式" class="headerlink" title="16.职责链模式"></a>16.职责链模式</h3><h3 id="17-迭代器模式"><a href="#17-迭代器模式" class="headerlink" title="17.迭代器模式"></a>17.迭代器模式</h3><h3 id="18-状态模式"><a href="#18-状态模式" class="headerlink" title="18.状态模式"></a>18.状态模式</h3><hr><h3 id="19-访问者模式"><a href="#19-访问者模式" class="headerlink" title="19.访问者模式"></a>19.访问者模式</h3><h3 id="20-备忘录模式"><a href="#20-备忘录模式" class="headerlink" title="20.备忘录模式"></a>20.备忘录模式</h3><h3 id="21-命令模式"><a href="#21-命令模式" class="headerlink" title="21.命令模式"></a>21.命令模式</h3><h3 id="22-解释器模式"><a href="#22-解释器模式" class="headerlink" title="22.解释器模式"></a>22.解释器模式</h3><h3 id="23-中介模式"><a href="#23-中介模式" class="headerlink" title="23.中介模式"></a>23.中介模式</h3>]]></content>
       
       
       <categories>
@@ -407,9 +407,9 @@
             
             <tag> 主题 </tag>
             
-            <tag> 设计模式 </tag>
-            
             <tag> JAVA </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -436,9 +436,9 @@
       
         <tags>
             
-            <tag> JAVA </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> JAVA </tag>
             
         </tags>
       
@@ -465,9 +465,9 @@
       
         <tags>
             
-            <tag> JAVA </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> JAVA </tag>
             
         </tags>
       
@@ -494,9 +494,9 @@
       
         <tags>
             
-            <tag> JAVA </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> JAVA </tag>
             
         </tags>
       
@@ -863,35 +863,6 @@
     
     
     <entry>
-      <title>重载与重写规则</title>
-      <link href="/2020/06/16/java/javase/1/"/>
-      <url>/2020/06/16/java/javase/1/</url>
-      
-        <content type="html"><![CDATA[<h1 id="重载-Overload"><a href="#重载-Overload" class="headerlink" title="重载(Overload)"></a>重载(Overload)</h1><ul><li><strong>被重载的方法必须改变参数列表(参数个数或类型不一样)；</strong></li><li>被重载的方法可以改变返回类型；</li><li>被重载的方法可以改变访问修饰符；</li><li>被重载的方法可以声明新的或更广的检查异常；</li><li>方法能够在同一个类中或者在一个子类中被重载。</li><li><strong>无法以返回值类型作为重载函数的区分标准。</strong></li></ul><h1 id="重写-Override"><a href="#重写-Override" class="headerlink" title="重写(Override)"></a>重写(Override)</h1><ul><li><p><strong>参数列表必须完全与被重写方法的相同。</strong></p></li><li><p>返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类（java5 及更早版本返回类型要一样，java7 及更高版本可以不同）。</p></li><li><p>访问权限不能比父类中被重写的方法的访问权限更低。</p><blockquote><p> 例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected。</p></blockquote></li><li><p>父类的成员方法只能被它的子类重写。</p></li><li><p>声明为 final 的方法不能被重写。</p></li><li><p>声明为 static 的方法不能被重写，但是能够被再次声明。</p></li><li><p>子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法。</p></li><li><p>子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。</p></li><li><p>重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。</p></li><li><p>构造方法不能被重写。</p></li><li><p>如果不能继承一个方法，则不能重写这个方法。</p></li></ul><h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><blockquote><p>重载：</p><ol><li>​    编译时的多态</li><li>​    重载发生在同一个类中</li><li>​    函数名相同，参数列表不同(参数的类型，顺序，个数 和参数名没有关系)  和方法的返回值类型无关   (因为编译器 并不知道 调用哪一个函数)</li><li>可以抛出不同的异常，可以有不同修饰符</li></ol><p>重写：</p><ol><li>​    运行时的多态</li><li>​    重载发生在子类与父类中</li><li>​    遵循两同两小一大 </li></ol><p>​            两同：</p><p>​                        函数名<strong>相同</strong></p><p>​                        参数列表<strong>相同</strong></p><p>​            两小：</p><p>​                        子类被重写方法的返回值类型<strong>小于</strong>父类被重写方法的返回值</p><p>​                        子类被重写方法抛出异常的类型<strong>小于</strong>父类被重写方法抛出异常的类型</p><p>​            一大：</p><p>​                        <strong>子类被重写方法的访问权限大于等于父类被重写方法的访问权限</strong></p><p>​        4.构造方法不能被重写，声明为 final 的方法不能被重写，声明为 static 的方法不能被重写（隐藏），但是能够被再次声明，父类的私有方法，子类可以继承 但是子类不能访问，子类不能重写父类的私有方法。</p></blockquote><table><thead><tr><th align="left">区别点</th><th align="left">重载方法</th><th align="left">重写方法</th></tr></thead><tbody><tr><td align="left">参数列表</td><td align="left">必须修改</td><td align="left">一定不能修改</td></tr><tr><td align="left">返回类型</td><td align="left">可以修改</td><td align="left">一定不能修改</td></tr><tr><td align="left">异常</td><td align="left">可以修改</td><td align="left">可以减少或删除，一定不能抛出新的或者更广的异常</td></tr><tr><td align="left">访问</td><td align="left">可以修改</td><td align="left">一定不能做更严格的限制（可以降低限制）</td></tr></tbody></table><blockquote><p><strong>重载是静态分配的表现，重写则是动态分派的表现。</strong></p></blockquote><p><a href="/2020/06/16/java/jvm/2-2-1"><strong>深入理解重载和重写</strong></a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> JAVA </category>
-          
-          <category> JAVA基础 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> JAVA </tag>
-            
-            <tag> JAVA基础 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>分派</title>
       <link href="/2020/06/16/java/jvm/2-2-1/"/>
       <url>/2020/06/16/java/jvm/2-2-1/</url>
@@ -913,6 +884,35 @@
             <tag> JAVA </tag>
             
             <tag> JVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>重载与重写规则</title>
+      <link href="/2020/06/16/java/javase/1/"/>
+      <url>/2020/06/16/java/javase/1/</url>
+      
+        <content type="html"><![CDATA[<h1 id="重载-Overload"><a href="#重载-Overload" class="headerlink" title="重载(Overload)"></a>重载(Overload)</h1><ul><li><strong>被重载的方法必须改变参数列表(参数个数或类型不一样)；</strong></li><li>被重载的方法可以改变返回类型；</li><li>被重载的方法可以改变访问修饰符；</li><li>被重载的方法可以声明新的或更广的检查异常；</li><li>方法能够在同一个类中或者在一个子类中被重载。</li><li><strong>无法以返回值类型作为重载函数的区分标准。</strong></li></ul><h1 id="重写-Override"><a href="#重写-Override" class="headerlink" title="重写(Override)"></a>重写(Override)</h1><ul><li><p><strong>参数列表必须完全与被重写方法的相同。</strong></p></li><li><p>返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类（java5 及更早版本返回类型要一样，java7 及更高版本可以不同）。</p></li><li><p>访问权限不能比父类中被重写的方法的访问权限更低。</p><blockquote><p> 例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected。</p></blockquote></li><li><p>父类的成员方法只能被它的子类重写。</p></li><li><p>声明为 final 的方法不能被重写。</p></li><li><p>声明为 static 的方法不能被重写，但是能够被再次声明。</p></li><li><p>子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法。</p></li><li><p>子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。</p></li><li><p>重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以。</p></li><li><p>构造方法不能被重写。</p></li><li><p>如果不能继承一个方法，则不能重写这个方法。</p></li></ul><h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><blockquote><p>重载：</p><ol><li>​    编译时的多态</li><li>​    重载发生在同一个类中</li><li>​    函数名相同，参数列表不同(参数的类型，顺序，个数 和参数名没有关系)  和方法的返回值类型无关   (因为编译器 并不知道 调用哪一个函数)</li><li>可以抛出不同的异常，可以有不同修饰符</li></ol><p>重写：</p><ol><li>​    运行时的多态</li><li>​    重载发生在子类与父类中</li><li>​    遵循两同两小一大 </li></ol><p>​            两同：</p><p>​                        函数名<strong>相同</strong></p><p>​                        参数列表<strong>相同</strong></p><p>​            两小：</p><p>​                        子类被重写方法的返回值类型<strong>小于</strong>父类被重写方法的返回值</p><p>​                        子类被重写方法抛出异常的类型<strong>小于</strong>父类被重写方法抛出异常的类型</p><p>​            一大：</p><p>​                        <strong>子类被重写方法的访问权限大于等于父类被重写方法的访问权限</strong></p><p>​        4.构造方法不能被重写，声明为 final 的方法不能被重写，声明为 static 的方法不能被重写（隐藏），但是能够被再次声明，父类的私有方法，子类可以继承 但是子类不能访问，子类不能重写父类的私有方法。</p></blockquote><table><thead><tr><th align="left">区别点</th><th align="left">重载方法</th><th align="left">重写方法</th></tr></thead><tbody><tr><td align="left">参数列表</td><td align="left">必须修改</td><td align="left">一定不能修改</td></tr><tr><td align="left">返回类型</td><td align="left">可以修改</td><td align="left">一定不能修改</td></tr><tr><td align="left">异常</td><td align="left">可以修改</td><td align="left">可以减少或删除，一定不能抛出新的或者更广的异常</td></tr><tr><td align="left">访问</td><td align="left">可以修改</td><td align="left">一定不能做更严格的限制（可以降低限制）</td></tr></tbody></table><blockquote><p><strong>重载是静态分配的表现，重写则是动态分派的表现。</strong></p></blockquote><p><a href="/2020/06/16/java/jvm/2-2-1"><strong>深入理解重载和重写</strong></a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JAVA </category>
+          
+          <category> JAVA基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JAVA </tag>
+            
+            <tag> JAVA基础 </tag>
             
         </tags>
       
@@ -1066,6 +1066,39 @@
     
     
     <entry>
+      <title>JVM</title>
+      <link href="/2020/06/06/java/theme/jvm/"/>
+      <url>/2020/06/06/java/theme/jvm/</url>
+      
+        <content type="html"><![CDATA[<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h3 id="1、JVM简介（√）"><a href="#1、JVM简介（√）" class="headerlink" title="1、JVM简介（√）"></a><a href="/2020/06/08/java/jvm/1-1/">1、JVM简介（√）</a></h3><hr><h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><h3 id="1、类加载子系统（√）"><a href="#1、类加载子系统（√）" class="headerlink" title="1、类加载子系统（√）"></a><a href="/2020/06/09/java/jvm/2-1/">1、类加载子系统（√）</a></h3><h3 id="2、虚拟机栈（√）"><a href="#2、虚拟机栈（√）" class="headerlink" title="2、虚拟机栈（√）"></a><a href="/2020/06/12/java/jvm/2-2/">2、虚拟机栈（√）</a></h3><h3 id="3、本地方法栈（√）"><a href="#3、本地方法栈（√）" class="headerlink" title="3、本地方法栈（√）"></a><a href="/2020/06/17/java/jvm/2-3/">3、本地方法栈（√）</a></h3><h3 id="4、程序计数器（√）"><a href="#4、程序计数器（√）" class="headerlink" title="4、程序计数器（√）"></a><a href="/2020/06/12/java/jvm/2-4/">4、程序计数器（√）</a></h3><h3 id="5、堆（√）"><a href="#5、堆（√）" class="headerlink" title="5、堆（√）"></a><a href="/2020/06/17/java/jvm/2-5/">5、堆（√）</a></h3><h3 id="6、方法区（√）"><a href="#6、方法区（√）" class="headerlink" title="6、方法区（√）"></a><a href="/2020/06/19/java/jvm/2-6/">6、方法区（√）</a></h3><hr><h3 id="7、执行引擎（√）"><a href="#7、执行引擎（√）" class="headerlink" title="7、执行引擎（√）"></a><a href="/2020/06/20/java/jvm/2-7/">7、执行引擎（√）</a></h3><h2 id="8、本地方法接口（略）"><a href="#8、本地方法接口（略）" class="headerlink" title="8、本地方法接口（略）"></a>8、本地方法接口（略）</h2><hr><h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="1、垃圾收集器"><a href="#1、垃圾收集器" class="headerlink" title="1、垃圾收集器"></a>1、垃圾收集器</h3><h3 id="2、内存分配策略"><a href="#2、内存分配策略" class="headerlink" title="2、内存分配策略"></a>2、内存分配策略</h3><h2 id="性能监控与调优"><a href="#性能监控与调优" class="headerlink" title="性能监控与调优"></a>性能监控与调优</h2><h3 id="1、性能监控"><a href="#1、性能监控" class="headerlink" title="1、性能监控"></a>1、性能监控</h3><h3 id="2、性能调优"><a href="#2、性能调优" class="headerlink" title="2、性能调优"></a>2、性能调优</h3><hr><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="1、StringTable"><a href="#1、StringTable" class="headerlink" title="1、StringTable"></a>1、StringTable</h3><h3 id="2、字节码"><a href="#2、字节码" class="headerlink" title="2、字节码"></a>2、字节码</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 主题 </category>
+          
+          <category> JAVA </category>
+          
+          <category> JVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 主题 </tag>
+            
+            <tag> JAVA </tag>
+            
+            <tag> JVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>算法</title>
       <link href="/2020/06/06/java/theme/arithmetic/"/>
       <url>/2020/06/06/java/theme/arithmetic/</url>
@@ -1088,42 +1121,9 @@
             
             <tag> 主题 </tag>
             
-            <tag> JAVA </tag>
-            
             <tag> 算法 </tag>
             
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>JVM</title>
-      <link href="/2020/06/06/java/theme/jvm/"/>
-      <url>/2020/06/06/java/theme/jvm/</url>
-      
-        <content type="html"><![CDATA[<h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h3 id="1、JVM简介（√）"><a href="#1、JVM简介（√）" class="headerlink" title="1、JVM简介（√）"></a><a href="/2020/06/08/java/jvm/1-1/">1、JVM简介（√）</a></h3><hr><h2 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h2><h3 id="1、类加载子系统（√）"><a href="#1、类加载子系统（√）" class="headerlink" title="1、类加载子系统（√）"></a><a href="/2020/06/09/java/jvm/2-1/">1、类加载子系统（√）</a></h3><h3 id="2、虚拟机栈（√）"><a href="#2、虚拟机栈（√）" class="headerlink" title="2、虚拟机栈（√）"></a><a href="/2020/06/12/java/jvm/2-2/">2、虚拟机栈（√）</a></h3><h3 id="3、本地方法栈（√）"><a href="#3、本地方法栈（√）" class="headerlink" title="3、本地方法栈（√）"></a><a href="/2020/06/17/java/jvm/2-3/">3、本地方法栈（√）</a></h3><h3 id="4、程序计数器（√）"><a href="#4、程序计数器（√）" class="headerlink" title="4、程序计数器（√）"></a><a href="/2020/06/12/java/jvm/2-4/">4、程序计数器（√）</a></h3><h3 id="5、堆（√）"><a href="#5、堆（√）" class="headerlink" title="5、堆（√）"></a><a href="/2020/06/17/java/jvm/2-5/">5、堆（√）</a></h3><h3 id="6、方法区（√）"><a href="#6、方法区（√）" class="headerlink" title="6、方法区（√）"></a><a href="/2020/06/19/java/jvm/2-6/">6、方法区（√）</a></h3><hr><h3 id="7、执行引擎（√）"><a href="#7、执行引擎（√）" class="headerlink" title="7、执行引擎（√）"></a><a href="/2020/06/20/java/jvm/2-7/">7、执行引擎（√）</a></h3><h2 id="8、本地方法接口（略）"><a href="#8、本地方法接口（略）" class="headerlink" title="8、本地方法接口（略）"></a>8、本地方法接口（略）</h2><hr><h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><h3 id="1、垃圾收集器"><a href="#1、垃圾收集器" class="headerlink" title="1、垃圾收集器"></a>1、垃圾收集器</h3><h3 id="2、内存分配策略"><a href="#2、内存分配策略" class="headerlink" title="2、内存分配策略"></a>2、内存分配策略</h3><h2 id="性能监控与调优"><a href="#性能监控与调优" class="headerlink" title="性能监控与调优"></a>性能监控与调优</h2><h3 id="1、性能监控"><a href="#1、性能监控" class="headerlink" title="1、性能监控"></a>1、性能监控</h3><h3 id="2、性能调优"><a href="#2、性能调优" class="headerlink" title="2、性能调优"></a>2、性能调优</h3><hr><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="1、StringTable"><a href="#1、StringTable" class="headerlink" title="1、StringTable"></a>1、StringTable</h3><h3 id="2、字节码"><a href="#2、字节码" class="headerlink" title="2、字节码"></a>2、字节码</h3><h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><hr><p>​    <strong>要快速的学习JVM就要了解你写的一行代码假如Car car = new Car();这个到底在虚拟机中是怎么加载，分配内存等等，然后怎么被回收处理，等，综合性的学习才能学得更快记得更牢固，起初就是一个知识点知识点的学，堆、栈、方法区…就像一开始学是一个点，然后变成碎片，这些组合起来就是jvm的内存结构，慢慢的组成一个网（整个JVM网络），只要组成一个网络化的知识，我说的是并不是这个网络有多么牢固，要明白不求甚解这个道理，尤其是JVM，知识点互相穿插，并不是一个知识点你就能很透彻，有可能你学了别的知识点，然后再看前面恍然大悟，往往我就是这样。而是你有了个整体的认识，就像从上向下看，一目了然，我认为这就是大局观，一定要有这种观念，知识网络化，小到一个知识点，大到系统的一个架构，一切都是思想，一定要有这个思想，显然我在JVM这个上面功力明显不足，我现在还停留在碎片的阶段（2020-06-19），我并不能把这个JVM特别清楚详细的描述，更别说深入的了解，我只是在尝试深入了解，其中有的点我并不是很清楚，形成一个基本的网络时间肯定不会很长，然后慢慢巩固这个网络，不求甚解这个方法形成网络后，肯定不如你平常研究某个知识点掌握那么的牢固，这种情况下，往往是别人问你你了解，知道有这个知识点，但是只能说个支支吾吾大概，这时无需感觉很无奈，感觉自己白学了，首先有了一个知识网络，然后在逐个点的巩固，不断的巩固，总有一天，（其实我非常烦说这个“总有一天” 这到底是哪一天？但是这个确实需要你的用心的，如果你用心时间肯定不会很长，否则确实就是“总有一天了。。。”）这个网络必定会变得非常健壮。</strong></p><blockquote><p>JVM网络，java网络，框架网络等等整合组成整个体系，相信自己肯定有一天会发生质的变化，短期内可能并没有很好地效果，反而会感觉自己哪哪都掌握不牢！！质的变化，对计算机这个这个体系有自己的认识，并不仅仅局限于Java这门语言。</p></blockquote><p>​    学习了JVM这个之后，真后悔没早点学这个，这个真的不是很快就能学习的，不像框架一样基本学一学就用上了，这个需要自己用心去理解，比较偏理论和实践，自己永远不真正环境的调优，只是简单的自我尝试那些效果并不好，应该长期持续的学习并且实战演练，<strong>实战是进步最快的</strong>。我原本打算的是最后学一学的。。。哎然后才发现JVM这个太重要了，这个太有魅力了，真正的让你接触到了一点java代码到底怎么执行的，自己写代码也不少了，从来没有研究过，哎，自己始终在“上层”，混迹“上流社会”，学习了这个让我明白了每一行代码都干了什么（当然不能是每一行那么夸张，自己还没这个水平），让我对内存的分配，一个类的加载，从前我从来没注意过，因为平常写的那些代码怎么可能OOM（顶多研究递归报一个栈溢出），学习了JVM让我对java思想有了很大的进步，不仅是java，是编程的思想，面向对象的思想。</p><p>​    <strong>编程的道路真的是哪有什么岁月静好,不过是有人替你负重前行！就像自己用springboot、springcloud，自己写代码越来越简单，不能总是期待等着出现更好更简单使用的框架，改变自己，别等着别人来改变你！</strong></p><blockquote><p>个人理解，随笔记录，实际上还有很多点，自己的感悟，自己这大学期间的感悟，和生活中的感悟，在<a href="/2020/06/06/life/life/">感悟</a>中慢慢分享。</p></blockquote>]]></content>
-      
-      
-      <categories>
-          
-          <category> 主题 </category>
-          
-          <category> JAVA </category>
-          
-          <category> JVM </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 主题 </tag>
-            
             <tag> JAVA </tag>
-            
-            <tag> JVM </tag>
             
         </tags>
       
