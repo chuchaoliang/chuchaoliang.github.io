@@ -2072,7 +2072,7 @@ blockquote footer cite:before {
 }
 @media screen and (min-width: 900px) {
   #aside_content .card-widget {
-    margin-right: 15px;
+    margin-left: 15px;
   }
 }
 .category-content ol,
@@ -3258,7 +3258,13 @@ blockquote footer cite:before {
   border-radius: 8px 0 0 8px;
 }
 #recent-posts > .recent-post-item .right_radius {
-  border-radius: 8px 0 0 8px;
+  -webkit-box-ordinal-group: 2;
+  -moz-box-ordinal-group: 2;
+  -o-box-ordinal-group: 2;
+  -ms-flex-order: 2;
+  -webkit-order: 2;
+  order: 2;
+  border-radius: 0 8px 8px 0;
 }
 #recent-posts > .recent-post-item .post_cover {
   overflow: hidden;
@@ -3648,22 +3654,6 @@ blockquote footer cite:before {
   }
   #recent-posts .recent-post-item .recent-post-info .content {
     height: auto;
-  }
-}
-@media screen and (min-width: 900px) {
-  #recent-posts,
-  #page,
-  .category-content,
-  #archive,
-  .tag-cloud,
-  #tag,
-  #category {
-    -webkit-box-ordinal-group: 2;
-    -moz-box-ordinal-group: 2;
-    -o-box-ordinal-group: 2;
-    -ms-flex-order: 2;
-    -webkit-order: 2;
-    order: 2;
   }
 }
 @media screen and (max-width: 900px) {
